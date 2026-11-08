@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=ASUS Fingerprint
+Comment=Enroll and manage fingerprint unlock for the lock screen (Goodix 27c6:521d)
+Exec=@OPT@/bin/asus-fingerprint
+Icon=fingerprint-gui
+Terminal=false
+Categories=Settings;Security;

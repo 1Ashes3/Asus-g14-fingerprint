@@ -1,0 +1,6 @@
+Vendored from https://github.com/goodix-fp-linux-dev/goodix-fp-dump
+commit cc43bb3b3154a0bccc0412ae024013c7e1923139 (MIT License, see LICENSE).
+Files: goodix.py (unmodified), tool.py (unmodified), protocol.py (SPI backend removed),
+constants_52xd.py (constants extracted from driver_52xd.py).
+Firmware is NOT included (Goodix property); it is downloaded at flash time from
+https://github.com/goodix-fp-linux-dev/goodix-firmware (pinned commit, SHA-256 verified).

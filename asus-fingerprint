@@ -1,0 +1,13 @@
+#!/bin/sh
+# Launch the ASUS Fingerprint app from this folder (uses the installed /opt environment if present,
+# else a local .venv, else the system python3). Offers to install tkinter if it is missing.
+HERE="$(cd "$(dirname "$0")" && pwd)"
+. "$HERE/packaging/ensure-tkinter.sh"
+for PY in /opt/asus-fingerprint/venv/bin/python "$HERE/.venv/bin/python" python3; do
+  if [ -x "$PY" ] || command -v "$PY" >/dev/null 2>&1; then
+    ensure_tkinter "$PY" || exit 1
+    exec "$PY" -I "$HERE/run.py" gui "$@"
+  fi
+done
+_fp_dialog_error "No Python 3 found. Please install Python 3.12 or newer."
+exit 1

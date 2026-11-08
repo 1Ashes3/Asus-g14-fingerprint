@@ -1,0 +1,2 @@
+# system user that owns the fingerprint sensor and runs asus-fp.service
+u asus-fp - "ASUS fingerprint unlock service" /var/lib/asus-fp /usr/bin/nologin

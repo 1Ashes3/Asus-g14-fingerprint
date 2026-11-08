@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE policyconfig PUBLIC "-//freedesktop//DTD PolicyKit Policy Configuration 1.0//EN"
+ "http://www.freedesktop.org/standards/PolicyKit/1/policyconfig.dtd">
+<policyconfig>
+  <vendor>asus-fingerprint</vendor>
+  <action id="org.asus-fp.admin">
+    <description>Save or delete your fingerprint enrollment</description>
+    <message>Authentication is required to change your fingerprint enrollment</message>
+    <defaults>
+      <allow_any>auth_admin</allow_any>
+      <allow_inactive>auth_admin</allow_inactive>
+      <allow_active>auth_admin</allow_active>
+    </defaults>
+    <annotate key="org.freedesktop.policykit.exec.path">@OPT@/bin/asus-fp-admin</annotate>
+  </action>
+  <action id="org.asus-fp.install">
+    <description>Install or remove the fingerprint lock-screen hook</description>
+    <message>Authentication is required to install or remove the fingerprint unlock software</message>
+    <defaults>
+      <allow_any>auth_admin</allow_any>
+      <allow_inactive>auth_admin</allow_inactive>
+      <allow_active>auth_admin</allow_active>
+    </defaults>
+    <annotate key="org.freedesktop.policykit.exec.path">@OPT@/bin/asus-fp-install</annotate>
+  </action>
+</policyconfig>

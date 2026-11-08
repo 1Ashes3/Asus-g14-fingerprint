@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Build output (release files go on the GitHub Releases page, not in the repo)
+*.AppImage
+*.pkg.tar.zst
+*.tar.gz
+dist/
+build/
+
+# Personal / biometric data - never commit
+NOTES.md
+logs/
+captures/
+*.npy
+*.npz
+*.cred
+*.log
