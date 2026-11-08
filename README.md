@@ -8,6 +8,8 @@ Built on the open-source protocol work of [goodix-fp-linux-dev](https://github.c
 (MIT). No vendor code is used. Matching is a dense masked-correlation matcher designed for this tiny
 (64×60 px, ~3 mm) sensor.
 
+Developed with the help of Claude (Anthropic); tested on the author's own ASUS ROG Zephyrus G14 GA401QM.
+
 ## Requirements
 
 - KDE Plasma **6** (uses kscreenlocker's parallel `kde-fingerprint` PAM service).
@@ -35,15 +37,17 @@ In the app (top to bottom, first time):
 
 1. **Install** – asks for your password (polkit) and installs: code + Python environment under
    `/opt/asus-fingerprint`, config `/etc/asus-fp/config.json`, udev rule (sensor access without root),
-   polkit policy, a per-user systemd service, the lock-screen PAM hook (`/etc/pam.d/kde-fingerprint`,
+   polkit policy, the `asus-fp` system service (runs as its own unprivileged user), the lock-screen PAM hook (`/etc/pam.d/kde-fingerprint`,
    derived from your distro's own vendor file; a pre-existing one is backed up), and a menu entry.
 2. **Flash firmware…** – only shown if the sensor still runs stock firmware. Read the full-screen
    warning: **flashing permanently disables the sensor for Windows.** Type the exact confirmation text;
    anything else closes the app. Details in `docs/FLASHING.md`.
-3. **Calibrate** – finger off the sensor; picks the sensor gain for your unit and records a 100-frame
-   blank background and noise mask (~10 s).
+3. **Calibrate** – finger off the sensor; picks the sensor gain for your unit and records a 1000-frame
+   blank background and noise mask (about a minute).
 4. **Enroll (5)** – five presses, lift between them, vary the spot a little. **Add 5 more** appends to the
-   existing enrollment (15–20 templates total is a good target; the sensor only sees a 3 mm patch per press).
+   existing enrollment. The number of presses per round (5/10/20/50) can be changed under **Options**.
+   Aim for about 50 templates in total: the sensor only sees a 3 mm patch per press, and in testing
+   ~50 templates matched far more reliably than ~20 (the store keeps up to 100).
    Saving asks for your password: the enrollment is stored root-owned and encrypted so nothing running as
    your user can alter what the lock screen trusts.
 5. **Test** – shows the live sensor image, `is finger detected`, and MATCH OK / NO MATCH.
@@ -105,7 +109,7 @@ In the app (top to bottom, first time):
 | `asus_fp/calibrate.py` | per-unit DAC pick + 100-frame background |
 | `asus_fp/firmware.py` | firmware probe, pinned download + SHA-256, guarded flash |
 | `asus_fp/store.py` | encrypted enrollment store |
-| `asus_fp/daemon.py` / `pam_client.py` | user service and PAM side |
+| `asus_fp/daemon.py` / `pam_client.py` | system service and PAM side |
 | `asus_fp/admin.py` / `installer.py` | privileged helper (pkexec) and system install |
 | `asus_fp/gui.py` | the app |
 | `third_party/goodix_fp_dump/` | vendored MIT protocol code (see SOURCE.txt) |
